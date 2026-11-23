@@ -482,17 +482,31 @@ dialog.md.show .md-b .sm-s{animation-delay:calc(var(--i,0)*80ms + .2s)}
 .js .cons.in .cn{opacity:1;transform:none;transition:opacity .5s var(--ease) calc(.95s + var(--i)*90ms),transform .6s var(--ease) calc(.95s + var(--i)*90ms),border-color .25s,box-shadow .35s var(--ease),background .25s}
 .js .cons.in .cn:hover,.js .cons.in .cn:focus-visible{transform:translateY(-4px);transition-delay:0s}
 @media(max-width:639px){
+ .cons{--rx:1.15rem;--pl:2.3rem}
  .cons-root{margin-left:0;transform:none}
- .cons-se{justify-content:flex-start;padding-left:1.15rem;height:1.9rem}
- .cons-se::before{left:1.15rem;margin-left:-1px}
+ .cons-se{justify-content:flex-start;padding-left:var(--rx);height:1.9rem}
+ .cons-se::before{left:var(--rx);margin-left:-1px}
  .cons-se span{margin-left:.9rem}
- .cons-l{grid-template-columns:1fr;padding:.2rem 0 0 1.15rem;gap:.45rem}
- .cons-l::before{top:0;bottom:1.3rem;left:0;right:auto;width:2px;height:auto;margin-left:-1px}
- .cons-l li::before{left:-1.15rem;top:50%;width:1.15rem;height:2px;margin:0}
+ .cons-l{grid-template-columns:1fr;padding:0 0 0 var(--pl);gap:.45rem}
+ .cons-l::before{display:none}
+ .cons-l li::before{left:calc(var(--rx) - var(--pl));top:50%;width:calc(var(--pl) - var(--rx));height:2px;margin:0}
+ .cons-l li::after{content:"";position:absolute;left:calc(var(--rx) - var(--pl) - 1px);top:-.45rem;bottom:-.45rem;width:2px;background:#EFBB10;opacity:1;transform-origin:top}
+ .cons-se::before,.cons-l li::before{background:#EFBB10;opacity:1}
+ .cons-l li:first-child::after{top:0}
+ .cons-l li:last-child::after{bottom:50%}
+ .cons-l li:hover::after,.cons-l li.on::after{background:var(--y2)}
  .cn{flex-direction:row;text-align:left;gap:.75rem;padding:.6rem .8rem}
  .cn .tx{gap:.15rem}
  .cons-d{text-align:left}
- .js .cons.in .cons-l::before{transform:scaleY(1);transform-origin:top}
+ .js .cons .cons-l li::after{transform:scaleY(0);transition:transform .5s var(--ease) calc(.85s + var(--i)*80ms)}
+ .js .cons.in .cons-l li::after{transform:scaleY(1)}
  .js .cons.in .cons-l li::before{transform:scaleX(1);transform-origin:left}
 }
-@media(prefers-reduced-motion:reduce){.js .cons .cn,.js .cons .cons-se::before,.js .cons .cons-l::before,.js .cons .cons-l li::before{opacity:1;transform:none!important}}
+@media(prefers-reduced-motion:reduce){.js .cons .cn,.js .cons .cons-se::before,.js .cons .cons-l::before,.js .cons .cons-l li::before,.js .cons .cons-l li::after{opacity:1;transform:none!important}}
+
+@media(max-width:959px){
+ .hero .photo{translate:none!important;display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+ .hero .photo .idc{grid-column:1/-1}
+ .chipf,.chipf.c1,.chipf.c2{position:static;animation:none;margin:0;right:auto;left:auto;top:auto;border-radius:16px;padding:.7rem .9rem}
+ .chipf b{font-size:1.35rem}
+}
